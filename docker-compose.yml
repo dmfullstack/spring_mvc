@@ -1,0 +1,14 @@
+SenimGuard:
+  restart: always
+  image: senim/senimchat:1.0-SNAPSHOT
+  ports:
+    - "8069:8069"  #default mapping is 5432(local machine):5432(container)
+  #environment:
+  #  - PG_USER=postgres
+  #  - POSTGRES_PASSWORD=postgres
+  #  - POSTGRES_USER=postgres
+  #  - POSTGRES_DB=senim_db  #change here
+  #  - PG_PASSWORD=postgres
+  #volumes:
+    # Replace path before ":" with where you would like refreshed image to be
+    #- ./target/senimguard.jar:/usr/local/tomcat/webapps/petclinic.war

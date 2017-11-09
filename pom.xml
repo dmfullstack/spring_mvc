@@ -12,6 +12,12 @@
     <name>tutorial</name>
     <description>Tut project for Spring MVC (first, starting with JavaEE)</description>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <output.directory>/</output.directory>
+        <docker.image.prefix>senim</docker.image.prefix>
+    </properties>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
@@ -51,6 +57,31 @@
                     <configuration>
                         <warSourceDirectory>${basedir}/src/main/webapp</warSourceDirectory>
                         <failOnMissingWebXml>false</failOnMissingWebXml>
+                    </configuration>
+                </plugin>
+                <!--
+                    Build the Docker image.
+                -->
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>dockerfile-maven-plugin</artifactId>
+                    <version>1.3.4</version>
+                    <executions>
+                        <execution>
+                            <id>default</id>
+                            <phase>install</phase>
+                            <goals>
+                                <!--Build docker image-->
+                                <goal>build</goal>
+                                <!--Push docker image to docker repo-->
+                                <!--<goal>push</goal>-->
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                        <tag>${project.version}</tag>
+                        <contextDirectory></contextDirectory>
                     </configuration>
                 </plugin>
             </plugins>

@@ -29,6 +29,11 @@ pipeline {
 //            }
             steps {
                 echo 'Deploying....'
+                docker.withRegistry('https://ec2-18-216-80-132.us-east-2.compute.amazonaws.com') {
+                    docker.image('my-custom-image').inside {
+                        sh 'make test'
+                    }
+                }
             }
 //            post {
 //                always {
